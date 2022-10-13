@@ -26,7 +26,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
           describe("constructor", async function () {
               it("sets the aggregator address correctly", async function () {
                   const response = await fundMe.getPriceFeed()
-                  assert.equal(response, mockV3Aggregator)
+                  assert.equal(response, mockV3Aggregator.address)
               })
           })
 
@@ -45,7 +45,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
               })
               it("Adds funder to array of getFunders", async function () {
                   await fundMe.fund({ value: sendValue })
-                  const funder = await fundMe.getFunders(0)
+                  const funder = await fundMe.getFunder(0)
                   assert.equal(funder, deployer)
               })
           })
@@ -55,7 +55,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
                   await fundMe.fund({ value: sendValue })
               })
 
-              it("Withdraw ETH from a single founder", async function () {
+              it("Withdraw ETH from a single funder", async function () {
                   // Arrange
                   const startingFundMeBalance =
                       await fundMe.provider.getBalance(fundMe.address)
@@ -75,8 +75,9 @@ const { developmentChains } = require("../../helper-hardhat-config")
                   // Assert
                   assert.equal(endingFundMeBalance, 0)
                   assert.equal(
-                      startingDeployerBalance.add(startingFundMeBalance)
-                          .toString,
+                      startingDeployerBalance
+                          .add(startingFundMeBalance)
+                          .toString(),
                       endingDeployerBalance.add(gasCost).toString()
                   )
               })
@@ -100,8 +101,9 @@ const { developmentChains } = require("../../helper-hardhat-config")
                   // Assert
                   assert.equal(endingFundMeBalance, 0)
                   assert.equal(
-                      startingDeployerBalance.add(startingFundMeBalance)
-                          .toString,
+                      startingDeployerBalance
+                          .add(startingFundMeBalance)
+                          .toString(),
                       endingDeployerBalance.add(gasCost).toString()
                   )
               })
@@ -135,8 +137,9 @@ const { developmentChains } = require("../../helper-hardhat-config")
                   // Assert
                   assert.equal(endingFundMeBalance, 0)
                   assert.equal(
-                      startingDeployerBalance.add(startingFundMeBalance)
-                          .toString,
+                      startingDeployerBalance
+                          .add(startingFundMeBalance)
+                          .toString(),
                       endingDeployerBalance.add(gasCost).toString()
                   )
 
@@ -196,7 +199,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
               // Assert
               assert.equal(endingFundMeBalance, 0)
               assert.equal(
-                  startingDeployerBalance.add(startingFundMeBalance).toString,
+                  startingDeployerBalance.add(startingFundMeBalance).toString(),
                   endingDeployerBalance.add(gasCost).toString()
               )
 

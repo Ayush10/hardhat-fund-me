@@ -19,7 +19,7 @@ module.exports = {
             url: GOERLI_RPC_URL,
             accounts: [PRIVATE_KEY],
             chainId: 5,
-            blockConfirmation: 6,
+            blockConfirmations: 6,
         },
         localhost: {
             url: "http://127.0.0.1:8545/", //accounts: hardhats already placed it,
@@ -43,7 +43,11 @@ module.exports = {
     },
     // solidity: "0.8.17",
     solidity: {
-        compilers: [{ version: "0.8.8" }, { version: "0.6.6" }],
+        compilers: [
+            { version: "0.8.8" },
+            { version: "0.6.6" },
+            { version: "0.8.10" },
+        ],
     },
     namedAccounts: {
         deployer: {

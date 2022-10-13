@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 
 // Pragma
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.10;
 
 // Imports
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
@@ -85,8 +85,8 @@ contract FundMe {
         // msg.value.getConversionRate();
         // require(getConversionRate(msg.value) >= minimumUSD, "Didn't send enough.");
         require(
-            msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
-            "You need to spend more ETH!"
+            msg.value.getConversionRate(s_priceFeed) <= MINIMUM_USD,
+            "You need to send more ETH!"
         );
         s_addressToAmountFunded[msg.sender] = msg.value;
         s_funders.push(msg.sender);
@@ -114,7 +114,7 @@ contract FundMe {
     //     return ethAmountInUSD;
     // }
 
-    function Withdraw() public onlyOwner {
+    function withdraw() public onlyOwner {
         // require(msg.sender == owner, "Sender is not owner!");
         /* strating index, ending index, step amount */
         for (
